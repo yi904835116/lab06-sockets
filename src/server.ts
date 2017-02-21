@@ -1,4 +1,5 @@
 import net = require('net');//import socket module
+import ip = require('ip');
 
 // define address interface
 interface Address { port: number; family: string; address: string; };
@@ -29,4 +30,7 @@ server.on('listening', function() {
 });
 
 //start the server
-server.listen(3000);
+server.listen({
+  host: ip.address(),
+  port: 3000
+});

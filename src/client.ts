@@ -1,4 +1,5 @@
 'use strict';
+import ip = require('ip');
 
 //make the client
 const net = require('net'),
@@ -16,7 +17,7 @@ client.on('close', function() { //when connection closed
 });
 
 
-var HOST = '127.0.0.1';
+var HOST = ip.address();
 var PORT = 3000;
 
 //connect to the server
