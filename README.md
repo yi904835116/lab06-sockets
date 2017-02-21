@@ -6,7 +6,7 @@ The internet wasn't built to be very dynamic, and historically web pages were ju
 ## Objectives
 * To learn what WebSockets are
 * To learn how to network with node.js
-* To set up and understand a client-server architecture
+* To set up a simple messaging application with a client-server architecture
 
 ## Necessary Files
 You will need to **fork** and **clone** [this repository](https://github.com/info498e-w17/lab06-sockets) and open the folder in your favorite editor.
@@ -47,13 +47,17 @@ We will start with server.ts, locaed in /src in it you will find some starter co
 A call to `net.createServer()`, returns a net Server object which is used to create a TCP or local server.
 
 ### Server on('connection') Listener
-When a client connects to the server, it emmits a 'connection' Event which returns a reference to the socket of the connected client. In order to listen for it, call
+When a client connects to the server, it emmits a 'connection' Event which returns a reference to the socket of the connected client. In order to listen for it pass a a socket to an anonymous function
 ```
 server.on('connection', function(socket){
   // do something with socket here
 });
 ```
+### Listening for data on a socket
+When data is sent from a client to a server, it sends data to a socket. This is emmitted as a 'data' event on the socket in above anonymous function. You can do something with that data by calling data.toString(), which converts it to a readable string. 
+
 ### Server listen()
+In order to actually start the server, you need to call `server.listen(<port>)`, passing in a number of the port you want your server to run on.
 
 ## Node Clients
 
