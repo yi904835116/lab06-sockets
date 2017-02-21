@@ -14,6 +14,10 @@ server.on('connection', function(socket:net.Socket){
         //
     });
 
+    socket.on('close', function(){
+        // handle client disconnecting
+    })
+
 
 });
 
