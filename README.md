@@ -50,23 +50,87 @@ In this lab you will be building a simple client-server messaging platform.
 We will start with server.ts, locaed in /src in it you will find some starter code that lays out the basic outline of a node server.
 A call to `net.createServer()`, returns a net Server object which is used to create a TCP or local server.
 
-### Server on('connection') Listener
+### Socket Connections
 When a client connects to the server, it emmits a 'connection' Event which returns a reference to the socket of the connected client. In order to listen for it pass a a socket to an anonymous function
 ```
-server.on('connection', function(socket){
-  // do something with socket here
+//notify (via observer!) when a a connection occurs
+server.on('connection', function(socket) {
+
+   //we've established a socket to use
+
+   //send a message to the socket
+   socket.write('Hello you!\n');
+
+   //close the connection
+   socket.end();
+
 });
 ```
-### Listening for data on a socket
-When data is sent from a client to a server, it sends data to a socket. This is emmitted as a 'data' event on the socket in above anonymous function. You can do something with that data by calling data.toString(), which converts it to a readable string.
-// TODO about socket.write()
 
-### Server listen()
+### Running The Server
 In order to actually start the server, you need to call `server.listen(<port>)`, passing in a number of the port you want your server to run on.
 This will emmit an event called 'listening', which you can also listen for (meta).
 
+```                          
+//when we start "listening" for connections
+server.on('listening', function() {
+   //get address info
+   var addr = server.address();
+
+   //print the info
+   console.log('server listening on port %d', addr.port);
+});
+
+server.listen(3000); //listen on port 3000
+```
+
+### Recieving messages
+When data is sent from a client to a server, it sends data to a socket. This is emmitted as a 'data' event on the socket in above anonymous function. You can do something with that data by calling `data.toString()`, which converts it to a readable string.
+You can also write to a socket, with `socket.write()` which will emitt a 'data' event on the client end.
+```
+/* when a socket is connected... */
+
+//notify on data received event
+socket.on('data', function(data) {
+
+   //process data
+   var echo = data.toString().toUpperCase();
+
+   if(echo === 'EXIT') {
+      socket.write("Goodbye!");
+      socket.end();
+   }
+   else {
+      socket.write("Did you say '"+echo+"'?");
+   }
+});
+```
+
 ## Node Clients
 The way to create clients in node is to initialize a new net.Socket() object, and to call connect() on the new socket object. The main events that need to be listened for are 'data' and 'close'.
+```
+//make the client
+var client = new net.Socket();
+
+client.on('data', function(data) { //when we get data
+   console.log("Received: "+data); //output it
+});
+
+client.on('close', function() { //when connection closed
+   console.log('Connection closed');
+});
+
+
+var HOST = '127.0.0.1';
+var PORT = 3000;
+//connect to the server
+client.connect(PORT, HOST, function() {
+   console.log('Connected to: ' + HOST + ':' + PORT);
+
+   //send message to server
+   client.write("Hello server, I'm the client!");
+});
+```
 
 ## Submission
 To recieve credit for this lab, turn in a link to your repository in the Lab6 assignment on Canvas
