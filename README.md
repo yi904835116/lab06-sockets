@@ -24,7 +24,11 @@ Import the net module with `import net = require('net')`
 
 ### Node Event Emmiters
 Node.js is built around the idea of an asynchronous, event driven architecture where certain types of objects (called "emitters") emit events that cause functions called listeners to be called. Every object that is an instance of the node EventEmmiter class has a method called eventEmmiter.on(), this allows you to listen for specific events and respond accordingly.
-You can define and listen for custom emmiters like: (outside scope of this excersise)
+
+#### Node .on()
+In order to listen to events you can call .on() to a defined emitter object with parameters like `emitter.on(eventName, listener)` where eventName is a string, and listener is a callback function.
+
+Additionally you can define and listen for custom emmiters like: (outside scope of this excersise)
 ```
 const EventEmitter = require('events');
 
@@ -40,10 +44,16 @@ myEmitter.emit('event');
 
 ## Node Servers
 We will start with server.ts, locaed in /src in it you will find some starter code that lays out the basic outline of a node server.
+A call to `net.createServer()`, returns a net Server object which is used to create a TCP or local server.
 
-### server connection listener
-
-## server listen()
+### Server on('connection') Listener
+When a client connects to the server, it emmits a 'connection' Event which returns a reference to the socket of the connected client. In order to listen for it, call
+```
+server.on('connection', function(socket){
+  // do something with socket here
+});
+```
+### Server listen()
 
 ## Node Clients
 
