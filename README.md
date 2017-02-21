@@ -41,6 +41,10 @@ myEmitter.on('event', () => {
 myEmitter.emit('event');
 
 ```
+## Client-Server Architecture
+The client-Server architecture is a way of distributing //TODO finish what is client server
+In this lab you will be building a simple client-server messaging platform.
+// TODO finish what the lab task actually is
 
 ## Node Servers
 We will start with server.ts, locaed in /src in it you will find some starter code that lays out the basic outline of a node server.
@@ -54,10 +58,15 @@ server.on('connection', function(socket){
 });
 ```
 ### Listening for data on a socket
-When data is sent from a client to a server, it sends data to a socket. This is emmitted as a 'data' event on the socket in above anonymous function. You can do something with that data by calling data.toString(), which converts it to a readable string. 
+When data is sent from a client to a server, it sends data to a socket. This is emmitted as a 'data' event on the socket in above anonymous function. You can do something with that data by calling data.toString(), which converts it to a readable string.
+// TODO about socket.write()
 
 ### Server listen()
 In order to actually start the server, you need to call `server.listen(<port>)`, passing in a number of the port you want your server to run on.
+This will emmit an event called 'listening', which you can also listen for (meta).
 
 ## Node Clients
+The way to create clients in node is to initialize a new net.Socket() object, and to call connect() on the new socket object. The main events that need to be listened for are 'data' and 'close'.
 
+## Submission
+To recieve credit for this lab, turn in a link to your repository in the Lab6 assignment on Canvas
