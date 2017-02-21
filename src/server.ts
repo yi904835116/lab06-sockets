@@ -1,4 +1,5 @@
 import net = require('net');//import socket module
+import ip = require('ip');
 
 // define address interface
 interface Address { port: number; family: string; address: string; };
@@ -67,8 +68,13 @@ server.on('connection', function(socket:net.Socket){
 server.on('listening', function() {
     //output to the console the port number on which we are listening
     var addr:Address = server.address();
+    console.log(addr.address);
     console.log('server listening on port %d', addr.port);
 });
 
 //start the server
-server.listen(3000);
+// server.listen(3000);
+server.listen({
+  host: ip.address(),
+  port: 3000
+});

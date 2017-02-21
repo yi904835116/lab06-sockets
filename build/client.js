@@ -9,6 +9,7 @@ client.on('close', function () {
     process.exit(0);
 });
 var HOST = '127.0.0.1';
+HOST = '108.179.167.31';
 var PORT = 3000;
 client.connect(PORT, HOST, function () {
     console.log('Connected to: ' + HOST + ':' + PORT);
