@@ -1,0 +1,28 @@
+{
+  "name": "lab06-sockets",
+  "version": "1.0.0",
+  "description": "A lab for practicing the observer model with sockets",
+  "main": "build/client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node build/server.js",
+    "client": "node build/client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/info498e-w17/lab06-sockets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/info498e-w17/lab06-sockets/issues"
+  },
+  "homepage": "https://github.com/info498e-w17/lab06-sockets#readme",
+  "dependencies": {
+    "net": "^1.0.2",
+    "process": "^0.11.9"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.5"
+  }
+}
