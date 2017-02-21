@@ -7,6 +7,7 @@ The internet wasn't built to be very dynamic, and historically web pages were ju
 * To learn what WebSockets are
 * To learn how to network with node.js
 * To set up a simple messaging application with a client-server architecture
+* Practice the observer model
 
 ## Necessary Files
 You will need to **fork** and **clone** [this repository](https://github.com/info498e-w17/lab06-sockets) and open the folder in your favorite editor.
@@ -41,14 +42,20 @@ myEmitter.on('event', () => {
 myEmitter.emit('event');
 
 ```
-## Client-Server Architecture
-The client-Server architecture is a way of distributing //TODO finish what is client server
-In this lab you will be building a simple client-server messaging platform.
-// TODO finish what the lab task actually is
+## Client-Server Architecture lab task
+In lecture we talked about the client-Server architecture. Now you will practice implementing the client-server architecture with the observer pattern and sockets.
+In this lab you will be building a simple client-server messaging platform (basically IRC).
+
 
 ## Node Servers
 We will start with server.ts, locaed in /src in it you will find some starter code that lays out the basic outline of a node server.
 A call to `net.createServer()`, returns a net Server object which is used to create a TCP or local server.
+
+Hints
+
+* You should maintain a list of client socket connections
+* Write a broadcast(message:string) function which your server can use to send the same message to all of its client sockets
+* When your server receives a message from a client, it should broadcast the same message
 
 ### Socket Connections
 When a client connects to the server, it emmits a 'connection' Event which returns a reference to the socket of the connected client. In order to listen for it pass a a socket to an anonymous function
@@ -107,6 +114,10 @@ socket.on('data', function(data) {
 ```
 
 ## Node Clients
+
+Your client code should take user input from the command line, and send it to the server.
+It should also print out messages that it receives from the server to the command line.
+
 The way to create clients in node is to initialize a new net.Socket() object, and to call connect() on the new socket object. The main events that need to be listened for are 'data' and 'close'.
 ```
 //make the client
@@ -131,6 +142,18 @@ client.connect(PORT, HOST, function() {
    client.write("Hello server, I'm the client!");
 });
 ```
+
+## Running your code
+
+Run `tsc --watch` to set up typescript auto transpilation.
+
+Run `npm run server` to run your server.
+
+Run `npm run client` to run your client.
+
+For development, run your own server on your machine. Your client will be another command line on the same machine.
+
+Once your code is working, you can try to connect to the class server running on the TA's laptop (details on the board).
 
 ## Submission
 To recieve credit for this lab, turn in a link to your repository in the Lab6 assignment on Canvas
